@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KOKAMODS</title>
+  <title>KOKAHUB</title>
+  
+  <!-- Tailwind for Komikku section -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
     /* Reset */
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -12,12 +17,8 @@
       background: #121212;
       color: white;
       font-family: "Roboto", sans-serif;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      overflow: hidden;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
     /* Particle canvas */
@@ -28,13 +29,24 @@
       z-index: 0;
     }
 
-    /* Logo */
+    /* MAIN LANDING (Original KOKAMODS UI) */
+    .landing {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 20px;
+    }
+
     .logo {
       width: 60%;
       max-width: 400px;
       margin-bottom: 20px;
       cursor: pointer;
-      z-index: 2;
       transition: transform 0.3s ease, filter 0.3s ease;
       filter: drop-shadow(0 0 20px rgba(255,255,255,0.4));
     }
@@ -43,11 +55,10 @@
       filter: drop-shadow(0 0 30px rgba(255,255,255,0.7));
     }
 
-    /* Buttons */
     .btn-container {
       display: flex;
       gap: 20px;
-      z-index: 2;
+      margin-top: 10px;
     }
     .btn {
       flex: 1;
@@ -71,7 +82,6 @@
       box-shadow: 0 0 20px rgba(255,255,255,0.4);
     }
 
-    /* Chibi Albedo */
     .albedo {
       position: fixed;
       bottom: 20px;
@@ -82,62 +92,154 @@
       cursor: pointer;
       animation: float 3s ease-in-out infinite;
     }
-    .albedo:hover {
-      transform: scale(1.1);
-      filter: drop-shadow(0 0 20px #fff);
-    }
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
 
-    /* Sparkles */
-    .sparkle {
-      position: absolute;
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: white;
-      pointer-events: none;
-      animation: sparkleAnim 1s ease-out forwards;
+    /* Transition button to Komikku section */
+    .scroll-down {
+      margin-top: 40px;
+      font-size: 1.1rem;
+      opacity: 0.8;
+      cursor: pointer;
+      transition: 0.3s;
     }
-    @keyframes sparkleAnim {
-      from { opacity: 1; transform: scale(1); }
-      to { opacity: 0; transform: scale(3); }
+    .scroll-down:hover { opacity: 1; }
+
+    /* KOMIKKU SECTION (Card with Tailwind) */
+    .komikku-section {
+      position: relative;
+      z-index: 2;
+      padding: 60px 20px;
+      padding-top: 100px;
     }
 
-    /* Shooting stars */
-    .shooting-star {
-      position: fixed;
-      width: 2px; height: 80px;
-      background: linear-gradient(white, transparent);
-      opacity: 0.8;
-      transform: rotate(45deg);
-      animation: shoot 1s linear forwards;
+    .glass-card {
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(14px);
+      background: rgba(25,25,25,0.15);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      box-shadow: 0 0 35px rgba(255,255,255,0.12);
+      transition: 0.3s;
     }
-    @keyframes shoot {
-      from { transform: translate(0,0) rotate(45deg); opacity: 1; }
-      to { transform: translate(-500px,500px) rotate(45deg); opacity: 0; }
+    .glass-card:hover {
+      box-shadow: 0 0 50px rgba(255,255,255,0.35);
+      transform: scale(1.01);
     }
-  </style>
+    .btn-primary { background-color: #238636; color: white; }
+    .btn-secondary { background-color: #21262d; color: #c9d1d9; border: 1px solid #30363d; }
+  .neon-title { filter: drop-shadow(0 0 12px rgba(138,180,255,0.8)); }
+.animated-border {
+  position: relative;
+  /* overflow hidden removed to fix invisibility */
+}
+.animated-border::before {
+  content: "";
+  position: absolute;
+  top: -6px; left: -6px;
+  right: -6px; bottom: -6px;
+  background: conic-gradient(from 0deg, rgba(138,180,255,0.35), rgba(255,255,255,0.12), rgba(138,180,255,0.35));
+  filter: blur(12px);
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes rotateBorder {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.glow-divider {
+  height: 2px;
+  width: 80%;
+  margin: 20px auto;
+  background: radial-gradient(circle, rgba(138,180,255,0.9), rgba(255,255,255,0) 70%);
+}
+.repo-btn {
+  background: #1f1f1f;
+  border-radius: 12px;
+  padding: 14px 28px;
+  font-weight: bold;
+  transition: .3s;
+  box-shadow: 0 0 15px rgba(255,255,255,0.15);
+}
+.repo-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(138,180,255,0.6);
+}
+.mascot-float {
+  width: 80px;
+  position: absolute;
+  top: -30px;
+  left: calc(50% - 40px);
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(255,255,255,0.6));
+}
+.soft-glow { box-shadow: 0 0 25px rgba(138,180,255,0.35), 0 0 45px rgba(255,255,255,0.15); }
+.btn:hover { box-shadow: 0 0 25px rgba(138,180,255,0.55); }
+</style>
 </head>
 <body>
+
   <canvas id="particles"></canvas>
 
-  <!-- Logo -->
-  <img src="https://beeimg.com/images/l50897260274.png" class="logo"
-       onclick="window.open('https://t.me/kokamodz', '_blank')" />
+  <!-- === MAIN LANDING === -->
+  <section class="landing">
+    <img src="https://beeimg.com/images/l50897260274.png" class="logo"
+         onclick="window.open('https://t.me/kokamodz', '_blank')" />
 
-  <!-- Buttons -->
-  <div class="btn-container">
-    <a class="btn youtube" target="_blank">YouTube</a>
-    <a class="btn music" target="_blank">Music</a>
-  </div>
+    <div class="btn-container">
+      <a class="btn youtube" target="_blank">YouTube</a>
+      <a class="btn music" target="_blank">Music</a>
+    </div>
 
-  <!-- Chibi Albedo -->
+    
+  </section>
+
   <img src="https://beeimg.com/images/z93284656431.png" class="albedo" id="albedo" />
 
+
+  <!-- === KOMIKKU EXTENSION REPO SECTION === -->
+  <section id="komikku" style="margin-top:120px;" class="komikku-section flex justify-center">
+  <div class="glass-card p-10 rounded-2xl text-center fade-in soft-glow" style="max-width:600px; width:90%;">
+
+    <img src="https://beeimg.com/images/l50897260274.png" style="width:100px; margin:-10px auto 10px auto; filter:drop-shadow(0 0 10px rgba(255,255,255,0.6));" />
+    <h1 class="text-4xl font-extrabold neon-title mb-6">Komikku Repository</h1>
+    <p class="text-gray-300 mb-6">Add and explore the Komikku extension source.</p>
+
+    <a href="tachiyomi://add-repo?url=https%3A%2F%2Fraw.githubusercontent.com%2Fkokamisama%2Fkomikku-repo%2Frepo%2Findex.min.json"
+       class="btn" style="display:inline-block; margin-bottom:20px;">📥 Add Komikku Repo</a>
+
+    <div class="glow-divider"></div>
+
+    <a href="https://github.com/kokamisama/komikku-repo" target="_blank" class="btn" style="display:inline-block; margin-top:20px; width:100%;">🌐 View Repository on GitHub</a>
+
+  </div>
+</section>
+
+      
+
+      
+
+    </div>
+  </section>
+
+
+  <!-- ORIGINAL JS FROM KOKAMODS INDEX -->
   <script>
-    /* ===== Particle System ===== */
+    /* Particles */
     const canvas = document.getElementById("particles");
     const ctx = canvas.getContext("2d");
     let particles = [];
@@ -155,7 +257,6 @@
         y: Math.random() * canvas.height,
         size: Math.random() * 3 + 1,
         speedY: Math.random() * 1 + 0.5,
-        type: Math.random() < 0.5 ? "snow" : (Math.random() < 0.5 ? "twinkle" : "orb"),
         opacity: Math.random()
       };
     }
@@ -165,70 +266,28 @@
     function drawParticles() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       particles.forEach(p => {
-        ctx.beginPath();
-        if (p.type === "snow") {
-          ctx.fillStyle = `rgba(255,255,255,${p.opacity})`;
-          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        } else if (p.type === "twinkle") {
-          ctx.fillStyle = `rgba(200,200,255,${Math.random()})`;
-          ctx.rect(p.x, p.y, p.size, p.size);
-        } else {
-          ctx.fillStyle = `rgba(255,150,255,${p.opacity * 0.5})`;
-          ctx.arc(p.x, p.y, p.size * 2, 0, Math.PI * 2);
-        }
+        ctx.fillStyle = `rgba(255,255,255,${p.opacity})`;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
-
         p.y += p.speedY;
-        if (p.y > canvas.height) {
-          p.x = Math.random() * canvas.width;
-          p.y = -p.size;
-        }
+        if (p.y > canvas.height) p.y = -p.size;
       });
       requestAnimationFrame(drawParticles);
     }
     drawParticles();
 
-    /* ===== Parallax Logo & Albedo ===== */
-    document.addEventListener("mousemove", e => {
-      const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
-      const moveY = (e.clientY / window.innerHeight - 0.5) * 20;
-      document.querySelector(".logo").style.transform = `translate(${moveX}px, ${moveY}px) scale(1.02)`;
-      document.querySelector(".albedo").style.transform = `translate(${moveX/2}px, ${moveY/2}px)`;
-    });
-
-    /* ===== Sparkles on Albedo Click ===== */
-    const albedo = document.getElementById("albedo");
-    albedo.addEventListener("click", e => {
-      for (let i = 0; i < 15; i++) {
-        const sparkle = document.createElement("div");
-        sparkle.className = "sparkle";
-        sparkle.style.left = `${e.clientX}px`;
-        sparkle.style.top = `${e.clientY}px`;
-        document.body.appendChild(sparkle);
-        setTimeout(() => sparkle.remove(), 1000);
-      }
-    });
-
-    /* ===== Shooting stars ===== */
-    function createShootingStar() {
-      const star = document.createElement("div");
-      star.className = "shooting-star";
-      star.style.top = `${Math.random() * window.innerHeight / 2}px`;
-      star.style.left = `${window.innerWidth}px`;
-      document.body.appendChild(star);
-      setTimeout(() => star.remove(), 1000);
-    }
-    setInterval(createShootingStar, 5000);
-
-    /* ===== Load Links from yt.txt and ytm.txt ===== */
-    fetch("assets/apk/yt.txt")
-      .then(res => res.text())
-      .then(link => { document.querySelector(".btn.youtube").href = link.trim(); });
-
-    fetch("assets/apk/ytm.txt")
-      .then(res => res.text())
-      .then(link => { document.querySelector(".btn.music").href = link.trim(); });
+    /* Load links */
+    fetch("assets/apk/yt.txt").then(r => r.text()).then(t => document.querySelector(".btn.youtube").href = t.trim());
+    fetch("assets/apk/ytm.txt").then(r => r.text()).then(t => document.querySelector(".btn.music").href = t.trim());
   </script>
+
+<script>
+// reveal fade-in elements
+const observer=new IntersectionObserver(entries=>{
+ entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
 </body>
 </html>
 
